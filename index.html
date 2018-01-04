@@ -36,9 +36,7 @@
 </div>
 
 <div id="groceryList" >
-    <ul>
-        <li ng-repeat="ingredient in week.groceryList">{{ingredient}}</li>
-    </ul>
+        <p ng-repeat="ingredient in week.groceryList track by $index">{{ingredient}}</p>
 </div>
 
 <button ng-click="week.updateList(week.meals)">Update List</button>
