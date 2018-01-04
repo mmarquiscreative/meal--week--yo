@@ -1,0 +1,11 @@
+#weekForm{
+    display: table;
+    width: 100%;
+    padding: 1rem;
+}
+
+.dayOfWeek{
+    text-align: center;
+    width: 14.28%;
+    display: table-cell;
+}

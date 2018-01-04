@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>AngularJS</title>
+    <link data-require="bootstrap-css" data-semver="3.1.1" rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    
+    <link rel="stylesheet" href="main.css" />
+    <script data-require="angular.js@1.2.x" src="http://code.angularjs.org/1.2.15/angular.js" data-semver="1.2.15"></script>
+    <script src="app.js"></script>
+  </head>
+
+<body ng-controller="weekController as week" >
+
+<div id="weekForm">
+    <div class="dayOfWeek" ng-repeat="day in week.meals">
+      <h3>{{day.dayName}}</h3>
+      <p>Breakfast</p>
+       <select ng-model="day.bf" >
+        <option ng-repeat="recipe in week.mealOptions">{{recipe.name}}</option>
+    </select>
+    <p>Lunch</p>
+      <select ng-model="day.ln" >
+        <option ng-repeat="recipe in week.mealOptions">{{recipe.name}}</option>
+    </select>
+    <p>Dinner</p>
+       <select ng-model="day.dn" >
+        <option ng-repeat="recipe in week.mealOptions">{{recipe.name}}</option>
+    </select>
+    
+    <p>{{day.bf}}</p>
+    <p>{{day.ln}}</p>
+    <p>{{day.dn}}</p>
+    </div>
+</div>
+
+<div id="groceryList" >
+    <ul>
+        <li ng-repeat="ingredient in week.groceryList">{{ingredient}}</li>
+    </ul>
+</div>
+
+<button ng-click="week.updateList(week.meals)">Update List</button>
+
+</body>
+
+</html>
