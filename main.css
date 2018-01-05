@@ -80,3 +80,21 @@ body{
 #groceryHeader{
     color: rgba(0,138,120,1);
 }
+
+#saveLoadContainer{
+    display: table;
+    width: 100%;
+    padding: 1rem;
+    border-spacing: 1rem;
+}
+#saveLoadContainer button{
+    width: 50%;
+}
+#saveBlock, #loadBlock{
+    display: table-cell;
+    width: 48%;
+}
+
+textarea{
+    width: 100%;
+}

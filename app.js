@@ -244,7 +244,59 @@ var recipes = {
      };
     
 }])
- 
- 
+
+ .controller('collectionController', function(){
+     
+     var collect = this;
+     
+     collect.updateCollect = function(loadString){
+         
+         
+         
+     }
+     
+     function decodeString(loadString){
+         var loadString = 'oatmeal%%%1%%%1## Cup ##oats&&&2## Cup ##water&&&3.2## Cup ##ect&&&___';
+         
+         /* oatmeal: {
+        name: 'Oatmeal',
+        qty: 1,
+        ingredients: [
+            [1, ' Cup ', 'oats'],
+            [2, ' Cup ', 'water'],
+            [3.2, ' Cup ', 'ect']
+        ]
+        } */
+         
+         var returnObj = {};
+         
+         var objArray = loadString.split('___');
+         
+         objArray.forEach(function(cur){
+             var tempInObj = {};
+             var propertyArray = cur.split('%%%');
+             tempInObj.name = propertyArray[0];
+             tempInObj.qty = propertyArray[1];
+             
+             var ingredientArray = [];
+             
+             if(cur.split('&&&').length > 0){
+                var ingredArray = propertyArray[2].split('&&&');
+                 
+                ingredArray.forEach(funtion(cur){
+                                    
+                                    var detailArray = cur.split('##');
+                 var pushArray = [detailArray[0] + detailArray[1] + detailArray[2]];
+                 
+                 ingredientArray.push(pushArray);
+                                    
+                                    })
+             }
+         })
+         
+     }
+     
+ })
+
  
  })();
