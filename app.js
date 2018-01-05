@@ -1,5 +1,53 @@
 (function(){
     
+    function decodeString(){
+         var loadString = 'Oatmeal%%%1%%%1## Cup ##oats&&&2## Cup ##water&&&3.2## Cup ##ect&&&';
+         
+        var testString = "var testObj = new Object(); testObj.oatmeal = new Object(); testObj.oatmeal.name = 'BoOatmeal'; testObj.oatmeal.qty= 1; testObj.oatmeal.ingredients = [[1, ' Cup ', 'oats'],[2, ' Cup ', 'water'],[3.2, ' Cup ', 'ect']]; console.log(testObj)";
+        
+        var testString2 = "var testObj2 = {oatmeal: { name: 'Oatmeal', qty: 1, ingredients: [[1, ' Cup ', 'oats'],[2, ' Cup ', 'water'],[3.2, ' Cup ', 'ect']]}};"
+        
+        
+        var ultTest = "var recipesTest = {oatmeal: {name: 'Oatmeal',qty: 1,ingredients: [[1, ' Cup ', 'oats'],[2, ' Cup ', 'water'],[3.2, ' Cup ', 'ect']]},salad:{name: 'Salad',qty: 3,ingredients: [[3, ' whole ', 'Leaves'],[2, ' Tbsp ', 'Dressing'],[4, ' whole ', 'Cucumbers']]},smoothie:{name: 'Smoothie',qty: 1,ingredients: [[2.4, ' Cup ', 'Berries'],[2, ' Cup ', 'Kale'],[4, ' oz ', 'Kevita'],[0.5, ' cup ', 'almonds']]}}"
+        eval(ultTest);
+
+         var returnObj = {};
+         
+         var objArray = loadString.split('___');
+         
+         objArray.forEach(function(cur){
+             var tempInObj = {};
+             var propertyArray = cur.split('%%%');
+             tempInObj.name = propertyArray[0];
+             tempInObj.qty = (parseInt(propertyArray[1]));
+             
+             var ingredientArray = [];
+             
+             if(cur.split('&&&').length > 0 && propertyArray[2]){
+                 console.log(propertyArray);
+                var ingredArray = propertyArray[2].split('&&&');
+                 console.log(ingredArray);
+                 
+                 for(var i = 0; i < (ingredArray.length - 1); i++){
+                                    
+                                    var detailArray = ingredArray[i].split('##');
+                 var pushArray = [(parseInt(detailArray[0])), detailArray[1], detailArray[2]];
+                 
+                 ingredientArray.push(pushArray);
+                                    
+                                    }
+             }
+             
+             tempInObj.ingredients = ingredientArray;
+             returnObj[tempInObj.name] = tempInObj;
+             console.log(tempInObj);
+         })
+         console.log(returnObj);
+        console.log(recipesTest);
+     }
+     
+     decodeString();
+    
     Array.prototype.howManyMatch = function(key){
         var instancesOf = 1;
         
@@ -16,7 +64,7 @@
     
     
 var recipes = {
-    oatmeal: {
+    /* oatmeal: {
         name: 'Oatmeal',
         qty: 1,
         ingredients: [
@@ -43,7 +91,7 @@ var recipes = {
             [4, ' oz ', 'Kevita'],
             [0.5, ' cup ', 'almonds']
         ]
-        }
+        } */
     }
 
 
@@ -55,6 +103,12 @@ var recipes = {
     var week = this;
     
     week.mealOptions = recipes;
+
+    week.testSave = function(){
+        var testString = $scope.loadSave;
+        eval(testString);
+        
+week.mealOptions = recipeUpload    }
     
     week.meals = {
         day_0:{
@@ -111,7 +165,9 @@ var recipes = {
     week.tempList = [];
     week.groceryList = [];
     
-    
+    week.loadString = function(){
+        document.querySelector('#loadCollectionString').value;
+    }
         week.updateList = function compileGroceryList(weekObj){
             
             var returnWeekArray = [];
@@ -255,46 +311,6 @@ var recipes = {
          
      }
      
-     function decodeString(loadString){
-         var loadString = 'oatmeal%%%1%%%1## Cup ##oats&&&2## Cup ##water&&&3.2## Cup ##ect&&&___';
-         
-         /* oatmeal: {
-        name: 'Oatmeal',
-        qty: 1,
-        ingredients: [
-            [1, ' Cup ', 'oats'],
-            [2, ' Cup ', 'water'],
-            [3.2, ' Cup ', 'ect']
-        ]
-        } */
-         
-         var returnObj = {};
-         
-         var objArray = loadString.split('___');
-         
-         objArray.forEach(function(cur){
-             var tempInObj = {};
-             var propertyArray = cur.split('%%%');
-             tempInObj.name = propertyArray[0];
-             tempInObj.qty = propertyArray[1];
-             
-             var ingredientArray = [];
-             
-             if(cur.split('&&&').length > 0){
-                var ingredArray = propertyArray[2].split('&&&');
-                 
-                ingredArray.forEach(funtion(cur){
-                                    
-                                    var detailArray = cur.split('##');
-                 var pushArray = [detailArray[0] + detailArray[1] + detailArray[2]];
-                 
-                 ingredientArray.push(pushArray);
-                                    
-                                    })
-             }
-         })
-         
-     }
      
  })
 
