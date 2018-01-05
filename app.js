@@ -108,7 +108,11 @@ var recipes = {
         var testString = $scope.loadSave;
         eval(testString);
         
-week.mealOptions = recipeUpload    }
+recipes = recipeUpload;
+        console.log(recipes);
+    console.log(week.mealOptions);
+        week.mealOptions = recipes;
+    }
     
     week.meals = {
         day_0:{
@@ -169,6 +173,8 @@ week.mealOptions = recipeUpload    }
         document.querySelector('#loadCollectionString').value;
     }
         week.updateList = function compileGroceryList(weekObj){
+            console.log(weekObj);
+            
             
             var returnWeekArray = [];
          
@@ -270,11 +276,11 @@ week.mealOptions = recipeUpload    }
      function compileDay(dayObj){
          var returnArray = [];
          
-         var breakfastString = dayObj.bf.toLowerCase();
+         var breakfastString = dayObj.bf.replace(/ /g,"_");
          
-         var lunchString = dayObj.ln.toLowerCase();
+         var lunchString = dayObj.ln.replace(/ /g,"_");
          
-         var dinnerString = dayObj.dn.toLowerCase();
+         var dinnerString = dayObj.dn.replace(/ /g,"_");
          
         if(week.mealOptions[breakfastString] !== undefined){
            
