@@ -60,7 +60,7 @@ var recipes = {
         day_0:{
             num: 0,
             dayName: 'Monday',
-            bf:'hey',
+            bf:'',
             ln:'',
             dn:''
         },
@@ -77,7 +77,7 @@ var recipes = {
             bf:'',
             ln:'',
             dn:''
-        }/* ,
+        },
         day_3:{
             num: 3,
             dayName: 'Thursday',
@@ -105,64 +105,112 @@ var recipes = {
             bf:'',
             ln:'',
             dn:''
-        } */
+        } 
     }
     
     week.tempList = [];
     week.groceryList = [];
     
-    function addMultiples(someArray){
-        var tempArray = someArray;
-        var duplicateCheck = [];
-        console.log(tempArray);
-        
-        console.log(someArray);
-        someArray.forEach(function(cur){
-            var tempCur = cur;
-            var curValue = cur[0];
-            console.log(cur);
-            if(duplicateCheck.indexOf(cur) === -1){
-                duplicateCheck.push(cur);
-                console.log(duplicateCheck);
-            } else if (duplicateCheck.indexOf(cur) > -1){
-                var tempIndex = duplicateCheck.indexOf(cur);
-                console.log(curValue);
-                duplicateCheck[tempIndex][0] += curValue;
-            } else {
-                console.log('some problem, heres cur: ' + cur);
-                console.log(duplicateCheck);
-            }
-            });
-        
-            console.log(duplicateCheck);
+    
+        week.updateList = function compileGroceryList(weekObj){
             
+            var returnWeekArray = [];
+         
+            for(var i = 0; i < 7; i++){
+                var tempArray = compileDay(weekObj[('day_' + i)]);
+                
+                tempArray.forEach(function(cur){
+                    returnWeekArray.push(cur);
+                });
+        
+            };
+         
+            console.log(returnWeekArray);
+            week.tempList = [];
+            week.tempList = returnWeekArray.slice();
+             
+            var compiledList = compileIngredients(week.tempList);
+        
+            console.log(compiledList);
+            week.groceryList = compiledList;
         }
-        
-    
-    
-    
-    
-         week.updateList = function compileGroceryList(weekObj){
-         var returnWeekArray = [];
-         
-        for(var i = 0; i < 3; i++){
-            var tempArray = compileDay(weekObj[('day_' + i)]);
-            tempArray.forEach(function(cur){
-                returnWeekArray.push(cur);
-            });
-        
-        };
-         
-         console.log(returnWeekArray);
-        week.tempList = returnWeekArray;
-             
-             addMultiples(week.tempList);
-             
-             
-             
-         
-     }
      
+            function compileIngredients(someArray){
+        var talliedIngredients = [];
+        var returnArray = [];
+        someArray.forEach(function(cur){
+            // console.log(cur);
+            var thisIngredient = cur[2];
+            var howMany = 0;
+            var tempMatch = false;
+            var pushArray = [];
+            
+            if(!(talliedIngredients.includes(thisIngredient))){
+                 someArray.forEach(function(cur){
+              tempMatch = cur.includes(thisIngredient);
+                if(tempMatch){
+                    howMany++;
+                    talliedIngredients.push(thisIngredient);
+                   // console.log(thisIngredient);
+                };
+            });
+                pushArray = [(cur[0] * howMany), cur[1], cur[2]];
+            
+            returnArray.push(pushArray);
+            };
+            
+            
+        });
+        // console.log(talliedIngredients);
+        // console.log(compiledIngredients);
+        return returnArray
+    };
+    
+    
+        /* function addMultiples(someArray){
+            var tempArray = someArray.slice();
+            var duplicateCheck = [];
+            var returnArray = [];
+            
+            console.log(someArray);
+        
+            someArray.forEach(function(cur){
+                var tempCur = cur;
+                var curValue = cur[0];
+                
+                console.log(duplicateCheck.indexOf(cur));
+                
+                if(!(duplicateCheck.includes(cur))){
+                    var tempArr = cur.slice();
+                    console.log(tempArr);
+                    console.log(cur);
+
+                    console.log(duplicateCheck);
+                    
+                    duplicateCheck.push(tempArr);
+                    returnArray.push(tempArr);
+
+                } else if (duplicateCheck.includes(cur)){
+                    var tempIndex = duplicateCheck.indexOf(cur);
+                    var tempNum = duplicateCheck[tempIndex][0];
+                    
+                    console.log(returnArray[tempIndex]);
+                    console.log(duplicateCheck[tempIndex]);
+                    
+                    returnArray[tempIndex][0] += tempNum;
+
+                } else {
+                    console.log('some problem, heres cur: ' + cur);
+                    console.log(duplicateCheck);
+                }
+            });
+
+        } */
+        
+    
+    
+    
+    
      function compileDay(dayObj){
          var returnArray = [];
          
@@ -172,13 +220,10 @@ var recipes = {
          
          var dinnerString = dayObj.dn.toLowerCase();
          
-       if(week.mealOptions[breakfastString] !== undefined){
+        if(week.mealOptions[breakfastString] !== undefined){
            
            week.mealOptions[breakfastString].ingredients.forEach(function(cur){
-               console.log(cur);
-               console.log(returnArray);
                returnArray.push(cur);
-               console.log(returnArray);
            });
 
        };
@@ -191,27 +236,15 @@ var recipes = {
                                                          
                                                     }
          
-                                                 console.log(returnArray[0]);
-
          if(week.mealOptions[dinnerString] !== undefined){ week.mealOptions[dinnerString].ingredients.forEach(function(cur){
                returnArray.push(cur);
            });
                                                     }
-         console.log(returnArray);
          return returnArray;
      };
     
 }])
  
- .controller('groceryController', function(){
-     var grocery = this;
-     grocery.mealOptions = recipes;
-     
-     grocery.listAll = [];
-     
-     grocery.compiledList = [];
-     
-
- })
+ 
  
  })();

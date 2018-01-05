@@ -16,27 +16,31 @@
 <div id="weekForm">
     <div class="dayOfWeek" ng-repeat="day in week.meals">
       <h3>{{day.dayName}}</h3>
-      <p>Breakfast</p>
+      <p id="mealBf">Breakfast</p>
        <select ng-model="day.bf" >
         <option ng-repeat="recipe in week.mealOptions">{{recipe.name}}</option>
     </select>
-    <p>Lunch</p>
+    <p id="mealLn">Lunch</p>
       <select ng-model="day.ln" >
         <option ng-repeat="recipe in week.mealOptions">{{recipe.name}}</option>
     </select>
-    <p>Dinner</p>
+    <p id="mealDn">Dinner</p>
        <select ng-model="day.dn" >
         <option ng-repeat="recipe in week.mealOptions">{{recipe.name}}</option>
     </select>
-    
-    <p>{{day.bf}}</p>
-    <p>{{day.ln}}</p>
-    <p>{{day.dn}}</p>
+    <hr/>
+    <p class="dayMeals">{{day.bf}}</p>
+    <p class="dayMeals">{{day.ln}}</p>
+    <p class="dayMeals">{{day.dn}}</p>
     </div>
 </div>
-
+<div ng-show="week.groceryList">
+<h3 id="groceryHeader">Weekly Grocery List</h3>
 <div id="groceryList" >
-        <p ng-repeat="ingredient in week.groceryList track by $index">{{ingredient}}</p>
+    <div ng-repeat="ingredient in week.groceryList track by $index">
+        <p>{{(ingredient[0] + ingredient[1] + ingredient[2])}}</p>
+    </div>
+</div>
 </div>
 
 <button ng-click="week.updateList(week.meals)">Update List</button>
