@@ -305,6 +305,14 @@ recipes = recipeUpload;
          return returnArray;
      };
     
+    week.showLoad = false;
+    week.toggleLoadString = ['Show Input', 'Hide Input'];
+    week.toggleLoadStringNum = 0;
+    week.toggleLoad = function(){
+        week.showLoad = !week.showLoad;
+        week.toggleLoadStringNum = 1 - week.toggleLoadStringNum;
+    }
+    
 }])
 
  .controller('collectionController', function(){

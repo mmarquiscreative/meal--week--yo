@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>AngularJS</title>
+    <link data-require="bootstrap-css" data-semver="3.1.1" rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    
+    <link rel="stylesheet" href="main.css" />
+    <script data-require="angular.js@1.2.x" src="http://code.angularjs.org/1.2.15/angular.js" data-semver="1.2.15"></script>
+    <script src="recipeContstructor.js"></script>
+  </head>
+
+<body ng-controller="buildController as build" >
+<div>
+    <div ng-repeat="recipe in build.recipeList">
+        <h3>{{recipe.name}}</h3>
+        <p ng-repeat="ingred in recipe.ingredients">{{ingred[0] + ingred[1] + ingred[0]}}</p>
+    </div>
+</div>
+
+<hr/>
+<div>
+  <h3>{{build.newRecipeTemp.name}}</h3>
+  <p><em>Serves {{build.newRecipeTemp.qty}}</em></p>
+  <p><strong>Ingredients:</strong></p>
+  <p ng-repeat="ingredient in build.newRecipeTemp.ingredients track by $index">{{ingredient[0] + ingredient[1] + ingredient[2]}}</p>
+  <button ng-click="build.addNewRecipe()">Add Recipe to List</button>
+  <hr/>
+   <h4>Recipe Name</h4>
+    <input type="text" placeholder="Recipe Name" ng-model="build.newRecipeTemp.name">
+    <h4>Servings</h4>
+    <input type="number" placeholder="Servings" ng-model="build.newRecipeTemp.qty">
+        <h4>Add Ingredient:</h4>
+
+    <input type="number" placeholder="Qty" ng-model="build.tempIngredient[0]">
+    <select ng-options="unit as unit for unit in build.unitList" placeholder="Unit" ng-model="build.tempIngredient[1]">
+    </select>
+    <input type="text" placeholder="ingredient" ng-model="build.tempIngredient[2]">
+    <p><strong>New Ingredient:</strong></p>
+    <p>{{build.tempIngredient[0] + build.tempIngredient[1] + build.tempIngredient[2]}}</p>
+    <button ng-click="build.addNewIngredient()">Add Ingredient</button>
+</div>
+<hr/>
+<div>
+    <h3>Save Recipe Collection</h3>
+    <p class="resultBlock" ng-model="build.saveCode">{{build.saveCode}}</p>
+    <button ng-click="build.saveRecipes()">Save Recipes</button>
+</div>
+<br/>
+<br/>
+</body>
+
+</html>

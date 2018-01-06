@@ -43,21 +43,18 @@
 </div>
 </div>
 
-<button ng-click="week.updateList(week.meals)">Update List</button>
+<button id="groceryBtn" ng-click="week.updateList(week.meals)">Update List</button>
 
+<hr/>
 <div id="saveLoadContainer">
-
-<div id="saveBlock">
-<h3>Save Collection</h3>
-<textarea class="resultBlock" rows="5" id="saveCode" placeholder="Save this recipe collection for next time."></textarea>
-<button>Get Save Code</button>
-</div>
-
 <div id="loadBlock">
-<h3>Load Collection</h3>
-<textarea class="resultBlock"  rows="5" ng-model="loadSave" placeholder="Load a previously saved recipe collection.">aaa</textarea>
-<button ng-click = "week.testSave()"id="loadCollectionBtn">Load Save Code</button>
-
+<h3>Load Recipe Collection</h3>
+<div ng-show="week.showLoad">
+<textarea class="resultBlock"  rows="5" ng-model="loadSave" placeholder="Load a previously saved recipe collection."></textarea>
+<button id="loadBtn" ng-click = "week.testSave()"id="loadCollectionBtn">Load Save Code</button>
+</div>
+<hr/>
+<p id="showLoad" ng-click="week.toggleLoad()"><em>{{week.toggleLoadString[week.toggleLoadStringNum]}}</em></p>
 </div>
     </div>
 </body>
